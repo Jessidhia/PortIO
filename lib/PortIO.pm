@@ -1,5 +1,6 @@
 package PortIO;
 
+use v5.10;
 use strict;
 use warnings;
 
@@ -114,8 +115,7 @@ BEGIN {
 	use Exporter ();
 	our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
-	$VERSION = "0.001_001";
-	$VERSION = eval $VERSION;
+	$VERSION = v0.1_1;
 
 	@ISA = qw(Exporter);
 

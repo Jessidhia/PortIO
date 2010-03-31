@@ -21,6 +21,7 @@ if ($^O =~ /MSWin/) {
 
 my $build = Module::Build->new (
     module_name       => "PortIO",
+    dynamic_config    => "1",
     license           => "bsd",
     requires          => \%requires,
 );

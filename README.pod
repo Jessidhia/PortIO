@@ -1,0 +1,100 @@
+=head1 NAME
+
+PortIO - semitransparent unicode filename support on windows
+
+=head1 DESCRIPTION
+
+This module implements several wrapper functions for file handling. They are
+intended to be used as a workaround when writing cross-platform code that needs
+to run on windows, since Perl doesn't support unicode filenames there. All
+functions defined here were tested to work on both windows and linux.
+
+These functions also always try to use long absolute paths on windows, which
+allows have a length of up to 65536 characters. It can convert relative
+paths to absolute ones.
+
+=head1 FUNCTIONS
+
+All functions expect to receive utf8 strings as arguments and return utf8
+strings.
+
+=head2 C<printout($)>
+
+Prints a single string to STDOUT.
+
+=head2 C<printerr($)>
+
+Prints a single string to STDERR.
+
+=head2 C<move($source,$destination)>
+
+Moves a file from $source to $destination.
+
+=head2 C<mkpath($path)>
+
+Creates the $path folder with all needed parent folders.
+
+=head2 C<rmpath($path)>
+
+Recursively deletes $path.
+
+=head2 C<stat($path)>
+
+Returns a L<File::stat> object with information from the file pointed
+by $path. Follow symlinks on unix, not yet on windows.
+
+=head2 C<lstat($path)>
+
+Does the same as L</C<stat($path)>>, but doesn't follow symlinks.
+
+=head2 C<file_exists($path)>
+
+Equivalent to L<-e|-X>, returns true if $path exists.
+
+=head2 C<file_size($path)>
+
+Equivalent to L<-s|-X>, returns the file size in bytes.
+
+=head2 C<is_dir($path)>
+
+Equivalent to L<-d|-X>, returns 1 if $path is a directory.
+
+=head2 C<is_file($path)>
+
+Equivalent to L<-f|-X>, returns 1 if $path is a file.
+
+=head2 C<file_open($mode, $path)>
+
+Wrapper around three-argument L<open>(). Returns the opened PerlIO handle that
+can be used in any other regular perl function.
+Currently supports only the '>', '>>', '<', '+<' and '+>' modes.
+Also supports PerlIO layers.
+
+=head2 C<file_unlink($file)>
+
+Equivalent to L<unlink>, unlinks a file.
+
+=head2 C<dir_rm($dir)>
+
+Equivalent to L<rmdir>, Removes a directory if it is empty.
+
+=head2 C<diropen($dir)>
+
+Wrapper around L<opendir>. Opens a handle to $dir, returns the handle. Note
+that the returned handle is only compatible with PerlIO::dirread and
+PerlIO::dirclose.
+
+=head2 C<dirread($handle)>
+
+Wrapper around L<readdir>. Returns the next child item in the directory. The
+returned item is always the basename, so you need to prepend it with the
+directory path if you intend to do anything with a child item.
+
+NOTE: This function expects the the filesystem to use UTF-8 filenames on non-windows.
+
+=head2 C<dirclose($handle)>
+
+Closes a $handle previously returned by L</"diropen">. This also makes the $handle
+invalid.
+
+=cut

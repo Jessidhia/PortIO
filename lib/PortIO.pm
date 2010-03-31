@@ -4,6 +4,10 @@ use v5.10;
 use strict;
 use warnings;
 
+BEGIN {
+	our $VERSION = v0.1_1;
+};
+
 =head1 NAME
 
 PortIO - semitransparent unicode filename support on windows
@@ -113,9 +117,7 @@ require File::stat;
 
 BEGIN {
 	use Exporter ();
-	our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
-
-	$VERSION = v0.1_1;
+	our (@ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
 	@ISA = qw(Exporter);
 

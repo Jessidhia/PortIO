@@ -128,7 +128,7 @@ our @EXPORT_OK;
 ### Windows Unicode support wrappers
 if ($^O =~ /MSWin/) {
 	require Win32API::File;
-	Win32API::File->import qw(:FuncW :Func :MOVEFILE_ :GENERIC_ :FILE_ 
+	Win32API::File->import qw(:FuncW :Func :MOVEFILE_ :GENERIC_ :FILE_
 	                          :FILE_SHARE_ :FILE_TYPE_ :FILE_ATTRIBUTE_ :Misc);
 	require Win32::API; Win32::API->import;
 	require Win32API::File::Time;
@@ -160,10 +160,10 @@ if ($^O =~ /MSWin/) {
 	my $GetFullPathNameW = Win32::API->new('kernel32.dll',
 	    'DWORD GetFullPathNameW(LPCWSTR lpFileName, DWORD nBufferLength, '.
 	    'LPWSTR lpBuffer, LPWSTR *lpFilePart);') or die "GetFullPathNameW: $^E";
-	
+
 	my $GetFileTime = Win32::API->new('kernel32.dll', 'GetFileTime', [qw{N P P P}], 'I') or
 	        die "GetFileTime: $^E";
-	
+
 	my $GetCurrentDirectoryW = Win32::API->new('kernel32.dll',
 	    'DWORD GetCurrentDirectoryW(DWORD nBufferLength, LPWSTR lpBuffer);') or
 	        die "GetCurrentDirectoryW: $^E";
@@ -299,7 +299,7 @@ if ($^O =~ /MSWin/) {
 			return undef;
 		}
 		my $handle;
-  
+
 		# TODO: figure out how to get the 1st field. 2nd doesn't exist on windows.
 		my @stat = (0, 0);
 		my $mode = S_IRWXU | S_IRWXG | S_IRWXO;

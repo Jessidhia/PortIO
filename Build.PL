@@ -20,8 +20,7 @@ if ($^O =~ /MSWin/) {
 }
 
 my $build = Module::Build->new (
-    dist_name         => "PortIO",
-    dist_version      => "1",
+    module_name       => "PortIO",
     license           => "bsd",
     requires          => \%requires,
 );

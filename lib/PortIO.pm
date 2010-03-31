@@ -114,7 +114,8 @@ BEGIN {
 	use Exporter ();
 	our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
-	$VERSION = 0.1;
+	our $VERSION = "0.001_01";
+	$VERSION = eval $VERSION;
 
 	@ISA = qw(Exporter);
 

@@ -488,7 +488,7 @@ if ($^O =~ /MSWin/) {
 	};
 	*file_unlink = sub { unlink(shift); };
 	*dir_rm = sub { rmdir(shift); };
-	*diropen = sub { opendir $_, shift; return $_; };
+	*diropen = sub { opendir my $h, shift; return $h; };
 	*dirread = sub { decode("UTF-8", readdir(shift), 1); };
 	*dirclose = sub { closedir shift; }
 }

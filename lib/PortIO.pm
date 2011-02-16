@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 BEGIN {
-	our $VERSION = v0.1_1;
+	our $VERSION = v0.2;
 };
 
 =head1 NAME
@@ -130,7 +130,7 @@ BEGIN {
 	@EXPORT = qw(*printout *printerr *move *mkpath *rmpath
 	             *file_exists *file_size *is_dir *is_file
 	             *file_open *file_unlink *dir_rm
-	             *diropen *dirread *dirclose);
+	             *diropen *dirread *dirclose *slink);
 };
 our @EXPORT_OK;
 

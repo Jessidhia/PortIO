@@ -112,6 +112,7 @@ invalid.
 use Symbol;
 use Encode;
 use Fcntl ':mode';
+use Carp;
 
 require File::stat;
 
@@ -317,7 +318,7 @@ if ($^O =~ /MSWin/) {
 			if ($type & FILE_TYPE_DISK()) {
 				$mode |= S_IFREG;
 			} else {
-				warn "Unknown filetype $type";
+				carp "Unknown filetype $type";
 			}
 		}
 		push @stat, $mode;
@@ -380,7 +381,7 @@ if ($^O =~ /MSWin/) {
 		$file = $abs_fname->("$file");
 		my @filters = split(':',$mode);
 		$mode = shift @filters;
-		die "File mode $mode not implemented" unless
+		croak "File mode $mode not implemented" unless
 		    scalar(grep { $mode eq $_ } ('<', '>', '>>', '+<', '+>'));
 
 		my ($flags, $share, $create) = (GENERIC_READ(), FILE_SHARE_READ(), undef);
@@ -402,14 +403,14 @@ if ($^O =~ /MSWin/) {
 		unless ($handle) {
 			my $f = $utf16->decode($file);
 			printout("Error opening $f: $^E\n");
-			die;
+			croak;
 		}
 		setFilePointer($handle, 0, FILE_END()) if $mode eq '>>';
 
 		my $f = gensym();
 		OsFHandleOpen($f, $handle, ($flags & GENERIC_READ() ? 'r' : '') .
 		                           ($flags & GENERIC_WRITE() ? 'w' : '') .
-		                           ($mode eq '>>' ? 'a' : '')) and $f or die "$!";
+		                           ($mode eq '>>' ? 'a' : '')) and $f or croak "$!";
 
 		if (@filters) {
 			binmode($f, ":". join(":", @filters));
@@ -477,7 +478,7 @@ if ($^O =~ /MSWin/) {
 		my ($mode, $file) = @_;
 		my @filters = split(':',$mode);
 		$mode = shift @filters;
-		die "File mode $mode not implemented" unless
+		croak "File mode $mode not implemented" unless
 		    scalar(grep { $mode eq $_ } ('<', '>', '>>', '+<', '+>'));
 		if (@filters) {
 			$mode .= ":" . join(":", @filters);

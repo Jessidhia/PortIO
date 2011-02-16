@@ -107,6 +107,11 @@ NOTE: This function expects the the filesystem to use UTF-8 filenames on non-win
 Closes a $handle previously returned by L</"diropen">. This also makes the $handle
 invalid.
 
+=head2 C<slink($oldfile,$newlink)>
+
+Equivalent to L<symlink>($oldfile, $newlink). Not implemented (yet) on Windows.
+When finally implemented, will only work on Windows Vista or newer.
+
 =cut
 
 use Symbol;
@@ -458,7 +463,10 @@ if ($^O =~ /MSWin/) {
 		$FindClose->Call($_[0]->{handle});
 		delete $_[0]->{handle};
 		delete $_[0]->{file_info};
-	}
+	};
+	*slink = sub {
+		croak "Symlinking not implemented!\n";
+	};
 } else {
 	require File::Copy;
 	require File::Path;
@@ -491,7 +499,8 @@ if ($^O =~ /MSWin/) {
 	*dir_rm = sub { rmdir(shift); };
 	*diropen = sub { opendir my $h, shift; return $h; };
 	*dirread = sub { decode("UTF-8", readdir(shift), 1); };
-	*dirclose = sub { closedir shift; }
+	*dirclose = sub { closedir shift; };
+	*slink = sub { symlink shift, shift; };
 }
 
 1;

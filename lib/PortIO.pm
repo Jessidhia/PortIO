@@ -137,8 +137,8 @@ our @EXPORT_OK;
 ### Windows Unicode support wrappers
 if ($^O =~ /MSWin/) {
 	require Win32API::File;
-	Win32API::File->import qw(:FuncW :Func :MOVEFILE_ :GENERIC_ :FILE_
-	                          :FILE_SHARE_ :FILE_TYPE_ :FILE_ATTRIBUTE_ :Misc);
+	Win32API::File->import(qw(:FuncW :Func :MOVEFILE_ :GENERIC_ :FILE_
+	                          :FILE_SHARE_ :FILE_TYPE_ :FILE_ATTRIBUTE_ :Misc));
 	require Win32::API; Win32::API->import;
 	require Win32API::File::Time;
 
